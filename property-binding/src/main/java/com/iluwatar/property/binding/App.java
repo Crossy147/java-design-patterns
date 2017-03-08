@@ -22,11 +22,27 @@
  */
 package com.iluwatar.property.binding;
 
+
 public class App {
   /**
    * Program entry point
    * 
    * @param args command line args
    */
-  public static void main(String[] args) {}
+  public static void main(String[] args) {
+
+    BindableProperty<Integer> value = new BindableProperty<>(2);
+    BindableProperty<Integer> doubleValue = new BindableProperty<>(value, v -> 2 * v);
+    BindableProperty<Integer> tripleValue = new BindableProperty<>(value, v -> 3 * v);
+
+    BindableProperty<Integer> fourthValue = new BindableProperty<>(100);
+
+    value.update(20);
+
+    BindableProperty.bindOneDirection(fourthValue, value, v -> v / 2);
+    
+    System.out.println("First value: " + value.getValue().toString());
+    System.out.println("Second value: " + doubleValue.getValue().toString());
+    System.out.println("Third value: " + tripleValue.getValue().toString());
+  }
 }
